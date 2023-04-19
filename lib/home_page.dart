@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ztmycdb2/my_deck.dart';
 import 'card_search.dart';
-import 'list_series.dart';
+import 'list_card.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: (){
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => List_series()),
+                      MaterialPageRoute(builder: (context) => List_card()),
                   );},
                 child: const Text(
                   "カードリスト",
@@ -67,23 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),),
             ),
             ),
-            const SizedBox(height: 20,),
-            SizedBox(
-              height: 50,
-              width: 200,
-              child:ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Card_Search()),
-                  );
-                },
-                child: const Text("検索",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),),
-              ),
-            ),
+
             const SizedBox(height: 20,),
             SizedBox(
               height: 50,

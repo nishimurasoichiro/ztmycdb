@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'list_stock.dart';
+
 class Card_View extends StatefulWidget {
-  Card_View(this.card_num,  this.list_name, {Key? key}) : super(key: key);
-  int card_num;
-  Map list_name;
+  Card_View(this.card_name, {Key? key}) : super(key: key);
+  String card_name;
+
 
   @override
   State<Card_View> createState() => _Card_ViewState();
 }
 class _Card_ViewState extends State<Card_View> {
 
-  get  card_num => widget.card_num;
-  get  list_name => widget.list_name;
+  get  card_name => widget.card_name;
 
 
   @override
@@ -19,7 +20,7 @@ class _Card_ViewState extends State<Card_View> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            "${list_name[card_num]["name"]}",
+            "${card_name}",
             style: const TextStyle(
               color: Colors.black,
             ),
@@ -40,18 +41,18 @@ class _Card_ViewState extends State<Card_View> {
               margin: const EdgeInsets.all(10),
                 child:Column(
                     children:[
-                      Text("カード名　: ${list_name[card_num]["name"]}"),
-                      Text("属性　: ${list_name[card_num]["attribute"]}"),
-                      Text("効果　: ${list_name[card_num]["effect"]}"),
-                      Text("カードの種類　: ${list_name[card_num]["kind"]}"),
-                      Text("カード番号 : ${list_name[card_num]["number"]}"),
-                      Text("パワー　: ${list_name[card_num]["power"]}"),
-                      Text("パワーコスト : ${list_name[card_num]["power_cost"]}"),
-                      Text("パワー　DAY : ${list_name[card_num]["power_day"]}"),
-                      Text("パワー　NIGHT : ${list_name[card_num]["power_night"]}"),
-                      Text("レアリティ　: ${list_name[card_num]["rarity"]}"),
-                      Text("収録弾　: ${list_name[card_num]["seties"]}"),
-                      Text("時間　: ${list_name[card_num]["time"]}"),
+                      Text("カード名　: ${card_name}"),
+                      Text("属性　: ${Card_list[card_name]["attribute"]}"),
+                      Text("効果　: ${Card_list[card_name]["effect"]}"),
+                      Text("カードの種類　: ${Card_list[card_name]["kind"]}"),
+                      Text("カード番号 : ${Card_list[card_name]["number"]}"),
+                      Text("パワー　: ${Card_list[card_name]["power"]}"),
+                      Text("パワーコスト : ${Card_list[card_name]["power_cost"]}"),
+                      Text("パワー　DAY : ${Card_list[card_name]["power_day"]}"),
+                      Text("パワー　NIGHT : ${Card_list[card_name]["power_night"]}"),
+                      Text("レアリティ　: ${Card_list[card_name]["rarity"]}"),
+                      Text("収録弾　: ${Card_list[card_name]["seties"]}"),
+                      Text("時間　: ${Card_list[card_name]["time"]}"),
       ]
       ),
             ),
