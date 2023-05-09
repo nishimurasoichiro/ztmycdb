@@ -3,6 +3,7 @@ import 'package:ztmycdb2/list_stock.dart';
 
 import 'create deck.dart';
 import 'deck_view.dart';
+import 'home_page.dart';
 
 class Mydeck extends StatefulWidget {
   const Mydeck();
@@ -18,19 +19,23 @@ class _MydeckState extends State<Mydeck> {
 
   void _onButtonPressed() {
     setState(() {
-      Navigator.push (
+      Deck_list["$deck_name"] = [];
+
+        Navigator.push (
         context,
         MaterialPageRoute(builder: (context) => Create_deck(
-        deck_name
+        deck_name,
+            Deck_list["$deck_name"]
     ))
     );
-     Deck_list["$deck_name"] = [];
+
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             "マイデッキ",
             style: TextStyle(
@@ -47,28 +52,52 @@ class _MydeckState extends State<Mydeck> {
         child: Column(
           children: [
             ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyHomePage(
+              )
+              ),
+            );
+                  }, child: const Text("ホーム")
+            ),
+            ElevatedButton(
                   onPressed: (){
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("デッキ名を指定"),
-                        content: TextField(
-                          decoration: const InputDecoration(
-                            hintText: "デッキ名を入力",
-                          ),
-                            onChanged: (String value) {
-                              setState(() {
-                                deck_name = value;
-                                check = value.isNotEmpty;
-                              });
-                            }
+                        content: StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                            return Container(
+                              height: 200,
+                              child: Column(
+                                children: [
+                                const Text("デッキ名を指定"),
+                                 SizedBox(height: 50,),
+                                 TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: "デッキ名を入力",
+                                  ),
+                                    onChanged: (String value) {
+                                      setState(() {
+                                        deck_name = value;
+                                        check = value.isNotEmpty;
+                                      });
+                                    }
+                                ),
+                                  TextButton(
+                                    //onPressed: check ? _onButtonPressed : null,
+                                    onPressed: check == false ? null :(){
+                                     _onButtonPressed();
+                              },
+                                    child: const Text("作成"),
+                                  )
+                              ],
+                              ),
+                            );
+                          },
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: check ? _onButtonPressed : null,
-                            child: const Text("作成"),
-                          )
-                        ],
+
                       ),
                     );
             },

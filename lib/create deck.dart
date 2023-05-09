@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'card_view.dart';
 import 'list_stock.dart';
+import 'my_deck.dart';
 
 class Create_deck extends StatefulWidget {
-   Create_deck(this.deck_name,{super.key});
+   Create_deck(this.deck_name, this.deck_List,{super.key});
    String deck_name;
+   List deck_List;
 
   
   @override
@@ -13,27 +15,44 @@ class Create_deck extends StatefulWidget {
 }
 class _Create_deckState extends State<Create_deck> {
 
-  bool isVisible = false;static  List<String> nameList = name_List;
-  List<String> searchedNames = [];
   get  deck_name => widget.deck_name;
+  get  newDeck => widget.deck_List;
 
+  bool isVisible = false;static  Map nameList = name_List;
+  List searchedNames = [];
 
   void search(String text) {
     setState(() {
       if (text.trim().isEmpty) {
         searchedNames = [];
       } else {
-        searchedNames = nameList.where((element) => element.contains(text)).toList();
+        for(var value in numberList){
+          if (nameList[value].contains(text)){
+            searchedNames.add(value);
+          }
+        }
       }
     });
   }
+
+  void save(){
+    Deck_list[deck_name] == newDeck;
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const Mydeck(
+    )
+    ),
+  );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title:  Text(
-            "${deck_name}",
-            style: TextStyle(
+            "$deck_name",
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 30,
@@ -48,16 +67,38 @@ class _Create_deckState extends State<Create_deck> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children:  [
-            Text("デッキ"),
+            const Text("デッキ"),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: (){
+                      save();
+                    },
+                    child: const Text("保存")
+                ),
+                ElevatedButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Mydeck(
+                        )
+                        ),
+                      );
+                    },
+                    child: const Text("戻る")
+                )
+              ],
+            ),
+
             Container(
               color: Colors.black,
               height: 200,
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.all(20),
               child: ListView.builder(
-                itemCount: Deck_list[deck_name].length,
+                itemCount: newDeck.length,
                 itemBuilder: (context, index) {
-                  return Container(
+                  return SizedBox(
                     height: 30,
                     child: Card(
                       child: Row(
@@ -68,7 +109,8 @@ class _Create_deckState extends State<Create_deck> {
                             width: 200,
                             child: FittedBox(
                               fit: BoxFit.contain,
-                              child:Text(Deck_list[deck_name][index]),
+                              child:Text("${Card_List[newDeck[index]]["name"]}"),
+
                             ),//
                           ),
                           Expanded(
@@ -79,8 +121,9 @@ class _Create_deckState extends State<Create_deck> {
                                       width: 35,
                                       child: IconButton(
                                         color: Colors.black,
-                                        onPressed: () {setState(() {
-                                          Deck_list[deck_name].remove("${Deck_list[deck_name][index]}");
+                                        onPressed: () {
+                                          setState(() {
+                                          newDeck.remove(Deck_list[deck_name][index]);
                                         });
                                         },
                                         icon: const Icon(
@@ -98,7 +141,7 @@ class _Create_deckState extends State<Create_deck> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => Card_View(
-                                    Deck_list[deck_name][index]
+                                    newDeck[index]
                                 )
                                 ),
                               );
@@ -117,13 +160,13 @@ class _Create_deckState extends State<Create_deck> {
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
         Column(
           children: [
-            Text('検索フォーム', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text('検索フォーム', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextField(
               onChanged: search,
-              decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 16)),
+              decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 16)),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -138,7 +181,7 @@ class _Create_deckState extends State<Create_deck> {
                   child: ListView.builder(
                     itemCount: searchedNames.length,
                     itemBuilder: (context, index) {
-                      return Container(
+                      return SizedBox(
                         height: 30,
                         child: Card(
                           child: Row(
@@ -149,7 +192,7 @@ class _Create_deckState extends State<Create_deck> {
                                 width: 200,
                                 child: FittedBox(
                                   fit: BoxFit.contain,
-                                  child:Text("${searchedNames[index]}"),
+                                  child: Text("${Card_List[searchedNames[index]]["name"]}"),
                                 ),
                               ),
                               Expanded(
@@ -160,7 +203,7 @@ class _Create_deckState extends State<Create_deck> {
                                       color: Colors.black,
                                       onPressed: () {
                                         setState(() {
-                                        Deck_list[deck_name].add("${searchedNames[index]}");
+                                          newDeck.add(searchedNames[index]);
                                         });
                                       },
                                       icon: const Icon(
@@ -173,13 +216,13 @@ class _Create_deckState extends State<Create_deck> {
                               ElevatedButton(
                                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.purple)),
                                 onPressed: (){
-                                  //Navigator.push(
-                                    // context,
-                                    // MaterialPageRoute(builder: (context) => Card_View(
-                                    //     searchedNames[index]
-                                    // )
-                                    // ),
-                                  //);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Card_View(
+                                        searchedNames[index] as int
+                                    )
+                                    ),
+                                  );
                                 },
                                 child: const Text("詳細",
                                 ),
@@ -193,7 +236,6 @@ class _Create_deckState extends State<Create_deck> {
                       );
                     },
                   ),
-
                 ),
               ),
           ],

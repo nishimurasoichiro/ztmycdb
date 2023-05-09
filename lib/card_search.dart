@@ -12,8 +12,11 @@ class Card_Search extends StatefulWidget {
 }
 class _Card_SearchState extends State<Card_Search> {
 
-  bool isVisible = false;static  List<String> nameList = name_List;
-  List<String> searchedNames = [];
+  // bool isVisible = false;static  List<String> nameList = name_List;
+  // List<String> searchedNames = [];
+
+  bool isVisible = false;static  Map nameList = name_List;
+  List searchedNames = [];
 
 
   void search(String text) {
@@ -21,7 +24,11 @@ class _Card_SearchState extends State<Card_Search> {
       if (text.trim().isEmpty) {
         searchedNames = [];
       } else {
-        searchedNames = nameList.where((element) => element.contains(text)).toList();
+        for(var value in numberList){
+          if (nameList[value].contains(text)){
+            searchedNames.add(value);
+          }
+        }
       }
     });
   }
@@ -44,7 +51,7 @@ class _Card_SearchState extends State<Card_Search> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Text('検索フォーム', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text('検索フォーム', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextField(
               onChanged: search,
               decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 16)),
@@ -75,7 +82,9 @@ class _Card_SearchState extends State<Card_Search> {
                                 width: 220,
                                 child: FittedBox(
                                   fit: BoxFit.contain,
-                                  child:Text("${searchedNames[index]}"),
+                                  child: Text("${Card_List[searchedNames[index]]["name"]}"),
+
+
                                 ),
                               ),
                               const Expanded(child: SizedBox()),
@@ -85,7 +94,7 @@ class _Card_SearchState extends State<Card_Search> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) => Card_View(
-                                        searchedNames[index]
+                                        searchedNames[index] as int
                                     )
                                     ),
                                   );

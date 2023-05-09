@@ -4,20 +4,32 @@ import 'package:ztmycdb2/card_view.dart';
 import 'card_search.dart';
 import 'list_stock.dart';
 
-class List_card extends StatefulWidget {
-  List_card( {Key? key}) : super(key: key);
+class CardListView extends StatefulWidget {
+  CardListView(this.series_num,  {Key? key}) : super(key: key);
+  int series_num;
+
   @override
-  State<List_card> createState() => _List_cardState();
+  State<CardListView> createState() => _CardListViewState();
 }
-class _List_cardState extends State<List_card> {
+class _CardListViewState extends State<CardListView> {
+
+  get  series_num => widget.series_num;
+  int  seties_num1 = 001 ;
+  List numlist = [];
+
+  // void createlist(String text) {
+  //   for(int i = 0; i < series_List[seties_num1]["how"]; i++){
+  //     numlist.add("$seties_num1"+"${i}");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            "カードリスト",
-            style: TextStyle(
+          title:  Text(
+            "${series_List[series_num]["name"]}",
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 30,
@@ -42,7 +54,7 @@ class _List_cardState extends State<List_card> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Card_Search()),
+                    MaterialPageRoute(builder: (context) => const Card_Search()),
                   );
                 },
                 child: const Text("検索→",
@@ -53,14 +65,14 @@ class _List_cardState extends State<List_card> {
             ),
             Container(
               color: Colors.black,
-              height: 600,
+              height: 550,
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.all(20),
 
               child: ListView.builder(
-                itemCount: Card_list.length,
+                itemCount: series_List[series_num]["how"],
                 itemBuilder: (context, index) {
-                  var key = Card_list.keys.elementAt(index);
+                  //var key = Card_List.keys.elementAt(index);
                   return Container(
                     height: 50,
                     child: Card(
@@ -71,9 +83,10 @@ class _List_cardState extends State<List_card> {
                             height: 35,
                             width: 200,
                             child: FittedBox(
-                              fit: BoxFit.contain,
-                              child:Text('$key'),
-                            ),//
+                              //fit: BoxFit.contain,
+                              child:Text("${Card_List[series_num * 1000 + (index + 1)]["name"]}",style: TextStyle(fontSize: 20,),),
+
+                            ),
 
                           ),
                           const Expanded(child: SizedBox()),
@@ -83,7 +96,7 @@ class _List_cardState extends State<List_card> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => Card_View(
-                                      key
+                                      series_num * 1000 + (index + 1)
                                   )
                                   ),
                                 );
