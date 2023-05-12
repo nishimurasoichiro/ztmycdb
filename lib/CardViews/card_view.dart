@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'list_stock.dart';
+import '../list_stock.dart';
 
 class Card_View extends StatefulWidget {
   Card_View(this.card_num, {Key? key}) : super(key: key);

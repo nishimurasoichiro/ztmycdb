@@ -3,7 +3,7 @@ import 'package:ztmycdb2/list_stock.dart';
 
 import 'create deck.dart';
 import 'deck_view.dart';
-import 'home_page.dart';
+import '../home_page.dart';
 
 class Mydeck extends StatefulWidget {
   const Mydeck();

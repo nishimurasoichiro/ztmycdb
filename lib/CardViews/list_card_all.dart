@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:ztmycdb2/CardViews/card_view.dart';
 
-import 'list_card.dart';
-import 'list_stock.dart';
+import '../list_stock.dart';
 
-class SeriesListView extends StatefulWidget {
-  const SeriesListView( {Key? key}) : super(key: key);
+class CardListView2 extends StatefulWidget {
+ const CardListView2({super.key});
+
   @override
-  State<SeriesListView> createState() => _SeriesListViewState();
+  State<CardListView2> createState() => _CardListView2State();
 }
-class _SeriesListViewState extends State<SeriesListView> {
+class _CardListView2State extends State<CardListView2> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            "シリーズリスト",
+          title:  const Text(
+            "全カードリスト",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -34,21 +35,16 @@ class _SeriesListViewState extends State<SeriesListView> {
             const SizedBox(
               height: 50,
             ),
-            const SizedBox(
-              height: 50,
-              width: 200,
-            ),
+
             Container(
               color: Colors.black,
               height: 550,
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.all(20),
-
               child: ListView.builder(
-                itemCount: series_list.length,
+                itemCount: numberList.length,
                 itemBuilder: (context, index) {
-                  var key = series_List.keys.elementAt(index);
-                  return Container(
+                  return SizedBox(
                     height: 50,
                     child: Card(
                       child: Row(
@@ -59,9 +55,8 @@ class _SeriesListViewState extends State<SeriesListView> {
                             width: 200,
                             child: FittedBox(
                               fit: BoxFit.contain,
-                              child:Text("${series_List[key]["name"]}"),
-                            ),//
-
+                              child:Text("${Card_List[numberList[index]]["name"]}",style: const TextStyle(fontSize: 20,),),
+                            ),
                           ),
                           const Expanded(child: SizedBox()),
                           ElevatedButton(
@@ -69,8 +64,8 @@ class _SeriesListViewState extends State<SeriesListView> {
                             onPressed: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => CardListView(
-                                    key
+                                MaterialPageRoute(builder: (context) => Card_View(
+                                    numberList[index]
                                 )
                                 ),
                               );

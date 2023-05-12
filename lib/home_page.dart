@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ztmycdb2/my_deck.dart';
-import 'list_card.dart';
-import 'list_series.dart';
+import 'package:ztmycdb2/CardViews/list_card_all.dart';
+import 'package:ztmycdb2/DeckViews/my_deck.dart';
+import 'CardViews/list_series.dart';
+import 'card_search.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -33,34 +34,60 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 30,),
-            SizedBox(
-              height: 50,
-              width: 200,
+            const SizedBox(height: 20,),
+            SizedBox(height: 50, width: 200,
               child:ElevatedButton(
                 onPressed: (){
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SeriesListView()),
+                    context,
+                    MaterialPageRoute(builder: (context) => Card_Search()),
                   );},
                 child: const Text(
-                  "カードリスト",
+                  "検索",
                   style: TextStyle(
                     fontSize: 20,
                   ),
                 ),
+              ),
             ),
+            const SizedBox(height: 20,),
+            SizedBox(height: 50, width: 200,
+              child:ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CardListView2()),
+                  );},
+                child: const Text(
+                  "全カードリスト",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            SizedBox(height: 50, width: 200,
+              child:ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SeriesListView()),
+                  );},
+                child: const Text(
+                  "収録リスト",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 20,),
             SizedBox(
               height: 50,
               width: 200,
               child:ElevatedButton(
-              onPressed: (){
-                // final url = Uri.parse('https://zutomayo.net/thebattlebegins_rule/');
-                // launchUrl(url);
-                // print("a");
-              },
+              onPressed: (){},
               child: const Text("遊び方",
               style: TextStyle(
                 fontSize: 20,

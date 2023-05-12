@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'card_view.dart';
+import 'CardViews/card_view.dart';
 import 'list_stock.dart';
 
 
@@ -10,14 +9,13 @@ class Card_Search extends StatefulWidget {
   @override
   State<Card_Search> createState() => _Card_SearchState();
 }
+
 class _Card_SearchState extends State<Card_Search> {
 
-  // bool isVisible = false;static  List<String> nameList = name_List;
-  // List<String> searchedNames = [];
-
-  bool isVisible = false;static  Map nameList = name_List;
+  bool isVisible = false;
   List searchedNames = [];
 
+  bool _isYellow = false;
 
   void search(String text) {
     setState(() {
@@ -25,7 +23,8 @@ class _Card_SearchState extends State<Card_Search> {
         searchedNames = [];
       } else {
         for(var value in numberList){
-          if (nameList[value].contains(text)){
+          if (Card_List[value]["name"].contains(text)){
+
             searchedNames.add(value);
           }
         }
@@ -54,12 +53,102 @@ class _Card_SearchState extends State<Card_Search> {
             const Text('検索フォーム', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextField(
               onChanged: search,
-              decoration: InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 16)),
+              decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 16)),
             ),
             const SizedBox(height: 16),
-            const Text(
-                '検索結果', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-            ),
+
+            // ElevatedButton(
+            //     onPressed: (){
+            //       showDialog(
+            //         context: context,
+            //         builder: (context) => AlertDialog(
+            //           content: StatefulBuilder(
+            //             builder: (BuildContext context, StateSetter setState) {
+            //               return SizedBox(
+            //                 height: 500,
+            //                 width:  300,
+            //                 child: Column(
+            //                   children: [
+            //                     const Text("詳細検索"),
+            //                     const SizedBox(height: 30,),
+            //                     Row(
+            //                       children: [
+            //                         const Text("属性1"),
+            //                             TextButton(
+            //                                 onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                               style: ElevatedButton.styleFrom(
+            //                                 backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                               ),
+            //                                 child: const Text("A"),
+            //                             ),
+            //                         TextButton(
+            //                           onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                           style: ElevatedButton.styleFrom(
+            //                             backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                           ),
+            //                           child: const Text("B"),
+            //                         ),
+            //                             TextButton(onPressed: (){}, child: const Text("C")),
+            //                             TextButton(onPressed: (){}, child: const Text("D")),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 10,),
+            //                     Row(
+            //                       children: [
+            //                         const Text("属性2"),
+            //                         TextButton(
+            //                           onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                           style: ElevatedButton.styleFrom(
+            //                             backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                           ),
+            //                           child: const Text("A"),
+            //                         ),
+            //                         TextButton(
+            //                           onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                           style: ElevatedButton.styleFrom(
+            //                             backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                           ),
+            //                           child: const Text("B"),
+            //                         ),
+            //                         TextButton(onPressed: (){}, child: const Text("C")),
+            //                         TextButton(onPressed: (){}, child: const Text("D")),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 10,),
+            //                     Row(
+            //                       children: [
+            //                         const Text("属性3"),
+            //                         TextButton(
+            //                           onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                           style: ElevatedButton.styleFrom(
+            //                             backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                           ),
+            //                           child: const Text("A"),
+            //                         ),
+            //                         TextButton(
+            //                           onPressed: ()=> setState(() => _isYellow = !_isYellow),
+            //                           style: ElevatedButton.styleFrom(
+            //                             backgroundColor: _isYellow ? Colors.yellow : Colors.blue,
+            //                           ),
+            //                           child: const Text("B"),
+            //                         ),
+            //                         TextButton(onPressed: (){}, child: const Text("C")),
+            //                         TextButton(onPressed: (){}, child: const Text("D")),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 10,),
+            //                   ],
+            //                 ),
+            //               );
+            //             },
+            //           ),
+            //
+            //         ),
+            //       );
+            //     },
+            //     child: const Text("詳細検索")
+            // ),
+            const Text('検索結果', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             Expanded(
               child:
               Center(
@@ -71,7 +160,7 @@ class _Card_SearchState extends State<Card_Search> {
                   child: ListView.builder(
                     itemCount: searchedNames.length,
                     itemBuilder: (context, index) {
-                      return Container(
+                      return SizedBox(
                         height: 50,
                         child: Card(
                           child: Row(
@@ -83,7 +172,6 @@ class _Card_SearchState extends State<Card_Search> {
                                 child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Text("${Card_List[searchedNames[index]]["name"]}"),
-
 
                                 ),
                               ),

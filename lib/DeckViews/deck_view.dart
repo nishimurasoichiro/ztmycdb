@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'card_view.dart';
+import '../CardViews/card_view.dart';
 import 'create deck.dart';
-import 'list_stock.dart';
+import '../list_stock.dart';
 import 'my_deck.dart';
 
 class Deck_View extends StatefulWidget {
